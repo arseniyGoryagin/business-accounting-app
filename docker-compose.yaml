@@ -1,0 +1,10 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image : meridian
+    container_name: meridian
+    ports:
+      - "8080:8080"
