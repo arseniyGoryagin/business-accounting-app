@@ -1,4 +1,5 @@
 package com.meridian.exceptions;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
 
@@ -26,11 +28,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorMessageResponse> handleRuntimeException(RuntimeException e){
+        log.error(e.getLocalizedMessage());
         return new ResponseEntity<>(new ErrorMessageResponse(e.getLocalizedMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessageResponse> handleException(Exception e){
+        log.error(e.getLocalizedMessage());
         return new ResponseEntity<ErrorMessageResponse>(new ErrorMessageResponse(e.getLocalizedMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

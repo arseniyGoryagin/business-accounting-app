@@ -22,8 +22,6 @@ public class AuthController {
     private final AuthService authService;
 
 
-
-
     @PostMapping("/login")
     public TokenResponse auth(@RequestBody @Valid LoginRequest request){
         return authService.authUser(request.getUsername(), request.getPassword());
