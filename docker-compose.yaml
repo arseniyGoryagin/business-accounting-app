@@ -1,10 +1,29 @@
 services:
 
-  app:
+  meridian:
     build:
       context: .
       dockerfile: Dockerfile
     image : meridian
     container_name: meridian
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/MERIDIAN
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_TOKEN_SECRET: L8vJh5TDoBFOG7QXWRh3zqf3Ib0BdsFt5SHXSaOkq90=
+
     ports:
       - "8080:8080"
+
+
+
+  database:
+    image: postgres:latest
+    container_name: database
+    restart: always
+    environment:
+      POSTGRES_DB: MERIDIAN
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
